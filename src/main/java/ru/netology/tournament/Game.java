@@ -6,10 +6,10 @@ import ru.netology.exeptions.NotRegisteredException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 public class Game {
-    private Game game = new Game();
+
+
 
     private Collection<Player> players = new ArrayList<>();
 
@@ -22,15 +22,15 @@ public class Game {
     }
 
     public Player findByName(String name) {
-        for (Player item : players) {
-            if (item.getName() == name) {
-                return item;
+        for (Player player : players) {
+            if (player.getName() == name) {
+                return player;
             }
         }
         return null;
     }
 
-    public Collection <Player> round(String playerName1, String playerName2) {
+    public Player[] round(Game game,String playerName1, String playerName2) {
 
         if (findByName(playerName1) == null) {
             throw new NotRegisteredException("Игрок не зарегистрирован");
@@ -52,7 +52,7 @@ public class Game {
             }
         }
         Arrays.sort(result);
-        return List.of(result);
+        return result;
     }
 
     public boolean matches(Player player, String playerName1, String playerName2) {
