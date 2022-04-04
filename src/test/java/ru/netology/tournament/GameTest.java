@@ -14,25 +14,30 @@ class GameTest {
 
     @Test
     void registration() {
+
         game.registration(first);
         game.registration(second);
 
-        Player [] expected = new Player[] {first,second};
-        Player [] actual = game.findAll();
-        assertArrayEquals(expected,actual);
+        Player[] expected = new Player[]{first, second};
+        Player[] actual = game.findAll();
+
+        assertArrayEquals(expected, actual);
     }
 
     @Test
     void findByName() {
+
         game.registration(first);
         game.registration(second);
 
         Player expected = first;
         Player player = game.findByName("IceMan");
+
         assertEquals(expected, player);
     }
 
     @Test
     void round() {
+
     }
 }
