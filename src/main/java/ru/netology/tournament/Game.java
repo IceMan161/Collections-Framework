@@ -4,16 +4,13 @@ import ru.netology.domain.Player;
 import ru.netology.exeptions.NotRegisteredException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 public class Game {
 
-
-
     private Collection<Player> players = new ArrayList<>();
 
-    public void registration(Player player) {
+    public void register(Player player) {
         players.add(player);
     }
 
@@ -30,35 +27,27 @@ public class Game {
         return null;
     }
 
-    public Player[] round(Game game,String playerName1, String playerName2) {
+    public int round(String playerName1, String playerName2) {
 
-        if (findByName(playerName1) == null) {
-            throw new NotRegisteredException("Игрок не зарегистрирован");
-        }
-        if (findByName(playerName2) == null) {
+        if (findByName(playerName1) == null && findByName(playerName2) == null) {
             throw new NotRegisteredException("Игрок не зарегистрирован");
         }
 
-        Player[] result = new Player[0]; // тут будем хранить подошедшие запросу продукты
-        for (Player player : game.findAll()) {
-            if (matches(player, playerName1, playerName2)) {
-                int length = result.length + 1;
-                Player[] tmp = new Player[length];
-                System.arraycopy(result, 0, tmp, 0, result.length);
-                int lastIndex = tmp.length - 1;
-                tmp[lastIndex] = player;
-                result = tmp;
-                // "добавляем в конец" массива result продукт product
-            }
-        }
-        Arrays.sort(result);
-        return result;
-    }
+        int Player1 = findByName(playerName1).getStrength();
+        int Player2 = findByName(playerName2).getStrength();
+        int point = 0;
 
-    public boolean matches(Player player, String playerName1, String playerName2) {
-        if (player.getName().equalsIgnoreCase(playerName1))
-            return player.getName().equalsIgnoreCase(playerName2);
-        return false;
+        if (Player1 - Player2 > 0) {
+            point = 1;
+        }
+        if (Player1 == Player2) {
+            point = 0;
+        }
+        if (Player1 - Player2 < 0) {
+            point = 2;
+        }
+        return point;
     }
 }
+
 
