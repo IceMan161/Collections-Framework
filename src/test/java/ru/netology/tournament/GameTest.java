@@ -2,7 +2,7 @@ package ru.netology.tournament;
 
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Player;
-
+import ru.netology.exeptions.NotRegisteredException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,6 +12,7 @@ class GameTest {
 
     Player first = new Player(1, "IceMan", 5);
     Player second = new Player(2, "Nomand", 7);
+    Player third = new Player(3,"Toxa",2);
 
     @Test
     void registration() {
@@ -49,7 +50,7 @@ class GameTest {
         Player expected = null;
         Player player = game.findByName("Toxa");
 
-        assertEquals(expected,player);
+        assertEquals(expected, player);
 
     }
 
@@ -70,7 +71,6 @@ class GameTest {
     }
 
     @Test
-
     void roundVictorySecond() {
 
         Player first = new Player(1, "IceMan", 5);
@@ -87,7 +87,6 @@ class GameTest {
     }
 
     @Test
-
     void roundDraw() {
 
         Player first = new Player(1, "IceMan", 5);
@@ -100,6 +99,24 @@ class GameTest {
         int actual = game.round("IceMan", "Nomand");
 
         assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void shouldExeptionSecond() {
+
+        game.register(first);
+
+        assertThrows(NotRegisteredException.class, () -> game.round("IceMan","Toxa"));
+
+    }
+
+    @Test
+    void shouldExeptionFirst() {
+
+        game.register(second);
+
+        assertThrows(NotRegisteredException.class, () -> game.round("IceMan","Nomand"));
 
     }
 }

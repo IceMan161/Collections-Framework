@@ -29,7 +29,7 @@ public class Game {
 
     public int round(String playerName1, String playerName2) {
 
-        if (findByName(playerName1) == null && findByName(playerName2) == null) {
+        if (findByName(playerName1) == null || findByName(playerName2) == null) {
             throw new NotRegisteredException("Игрок не зарегистрирован");
         }
 
